@@ -11,7 +11,15 @@ export class SequelizeRepository {
     try {
       return await this.repo.findOne(options);
     } catch (err) {
-      return null;
+      throw err;
+    }
+  }
+
+  public async createAsync(values: any) {
+    try {
+      return await this.repo.create(values);
+    } catch (err) {
+      throw err;
     }
   }
 }

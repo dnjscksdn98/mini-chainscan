@@ -13,18 +13,18 @@ export interface IBlockAttributes {
   baseFeePerGas?: string;
   difficulty?: string;
   extraData?: string;
-  gasLimit?: number;
-  gasUsed?: number;
+  gasLimit?: string;
+  gasUsed?: string;
   hash?: string;
   logsBloom?: string;
   miner?: string;
   mixHash?: string;
   nonce?: string;
-  number?: number;
+  number?: string;
   parentHash?: string;
   receiptsRoot?: string;
   sha3Uncles?: string;
-  size?: number;
+  size?: string;
   stateRoot?: string;
   timestamp?: number;
   totalDifficulty?: string;
@@ -35,24 +35,24 @@ export interface ITransactionAttributes {
   id?: number;
   blockId?: number;
   from?: string;
-  gas?: number;
+  gas?: string;
   gasPrice?: string;
   maxFeePerGas?: string;
   maxPriorityFeePerGas?: string;
   hash?: string;
   input?: string;
-  nonce?: number;
+  nonce?: string;
   to?: string;
-  transactionIndex?: number;
+  transactionIndex?: string;
   value?: string;
-  type?: number;
+  type?: string;
   v?: string;
   r?: string;
   s?: string;
   contractAddress?: string;
-  cumulativeGasUsed?: number;
+  cumulativeGasUsed?: string;
   effectiveGasPrice?: string;
-  gasUsed?: number;
+  gasUsed?: string;
   status?: boolean;
 }
 
@@ -61,7 +61,7 @@ export interface ITransactionLogAttributes {
   transactionId?: number;
   address?: string;
   data?: string;
-  logIndex?: number;
+  logIndex?: string;
   removed?: boolean;
 }
 

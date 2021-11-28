@@ -11,6 +11,10 @@ export class Evm {
     );
   }
 
+  public toHex(value: number | string) {
+    return this.client.utils.toHex(value);
+  }
+
   public async getBlock(blockNumber: number) {
     return await this.client.eth.getBlock(blockNumber);
   }

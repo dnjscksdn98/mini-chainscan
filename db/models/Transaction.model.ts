@@ -24,7 +24,7 @@ export class Transaction extends Model implements ITransactionCreationAttributes
 
   @AllowNull(false)
   @Column
-  gas!: number;
+  gas!: string;
 
   @AllowNull(false)
   @Column
@@ -48,7 +48,7 @@ export class Transaction extends Model implements ITransactionCreationAttributes
 
   @AllowNull(false)
   @Column
-  nonce!: number;
+  nonce!: string;
 
   @AllowNull(false)
   @Column
@@ -56,7 +56,7 @@ export class Transaction extends Model implements ITransactionCreationAttributes
 
   @AllowNull(false)
   @Column
-  transactionIndex!: number;
+  transactionIndex!: string;
 
   @AllowNull(false)
   @Column
@@ -64,7 +64,7 @@ export class Transaction extends Model implements ITransactionCreationAttributes
 
   @AllowNull(false)
   @Column
-  type!: number;
+  type!: string;
 
   @AllowNull(false)
   @Column
@@ -84,7 +84,7 @@ export class Transaction extends Model implements ITransactionCreationAttributes
 
   @AllowNull(false)
   @Column
-  cumulativeGasUsed!: number;
+  cumulativeGasUsed!: string;
 
   @AllowNull(false)
   @Column
@@ -92,7 +92,7 @@ export class Transaction extends Model implements ITransactionCreationAttributes
 
   @AllowNull(false)
   @Column
-  gasUsed!: number;
+  gasUsed!: string;
 
   @AllowNull(false)
   @Column

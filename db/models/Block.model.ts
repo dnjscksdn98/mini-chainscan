@@ -32,11 +32,11 @@ export class Block extends Model implements IBlockCreationAttributes {
 
   @AllowNull(false)
   @Column
-  gasLimit!: number;
+  gasLimit!: string;
 
   @AllowNull(false)
   @Column
-  gasUsed!: number;
+  gasUsed!: string;
 
   @AllowNull(false)
   @Column
@@ -60,7 +60,7 @@ export class Block extends Model implements IBlockCreationAttributes {
 
   @AllowNull(false)
   @Column
-  number!: number;
+  number!: string;
 
   @AllowNull(false)
   @Column
@@ -76,7 +76,7 @@ export class Block extends Model implements IBlockCreationAttributes {
 
   @AllowNull(false)
   @Column
-  size!: number;
+  size!: string;
 
   @AllowNull(false)
   @Column

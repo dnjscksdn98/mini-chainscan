@@ -28,7 +28,7 @@ export class TransactionLog extends Model implements ITransactionLogCreationAttr
 
   @AllowNull(false)
   @Column
-  logIndex!: number;
+  logIndex!: string;
 
   @AllowNull(false)
   @Column
