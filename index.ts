@@ -1,1 +1,3 @@
-console.log('hello world');
+import { run } from "./cmd";
+
+run();
