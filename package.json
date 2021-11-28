@@ -1,0 +1,20 @@
+{
+  "name": "@dnjscksdn98/mini-chainscan",
+  "version": "1.0.0",
+  "author": "dnjscksdn98",
+  "main": "./index.ts",
+  "scripts": {
+    "start": "nodemon --exec ts-node ./index.ts",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dnjscksdn98/mini-chainscan.git"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.10",
+    "nodemon": "^2.0.15",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.2"
+  }
+}
