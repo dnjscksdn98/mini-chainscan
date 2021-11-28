@@ -1,13 +1,19 @@
-import { ChainId } from "../interfaces/credentials";
-import { errorHandler } from "../utils/error-handler";
-import { ChainScan } from "./core";
+import { QueryHandler } from '../db/handlers';
+import { ChainId } from '../interfaces/credentials';
+import { errorHandler } from '../utils/error-handler';
+import { ChainScan } from './core';
 
-async function run() {
+async function run(queryHandler: QueryHandler) {
   process.on('uncaughtException', errorHandler);
   process.on('unhandledRejection', errorHandler);
 
-  const scan = new ChainScan(Number(ChainId));
-  scan.init();
+  const chain = await queryHandler.findOneChainByChainId(Number(ChainId), true);
+  if (!chain) {
+    return;
+  }
+
+  const scan = new ChainScan(chain, queryHandler);
+  await scan.sync();
 }
 
 export { run };

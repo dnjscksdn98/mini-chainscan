@@ -2,6 +2,7 @@ CREATE TABLE `Chain` (
   `id` int NOT NULL AUTO_INCREMENT,
   `chainId` int NOT NULL,
   `syncedBlock` int NOT NULL,
+  `uri` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4

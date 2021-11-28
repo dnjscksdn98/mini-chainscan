@@ -17,4 +17,8 @@ export class Chain extends Model implements IChainCreationAttributes {
   @AllowNull(false)
   @Column
   syncedBlock!: number;
+
+  @AllowNull(false)
+  @Column
+  uri!: string;
 }

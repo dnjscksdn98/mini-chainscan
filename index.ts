@@ -1,3 +1,9 @@
-import { run } from "./cmd";
+import { run } from './cmd';
+import { CsSequelize } from './db';
+import { QueryHandler } from './db/handlers';
 
-run();
+async function main() {
+  const queryHandler = new QueryHandler(new CsSequelize());
+  run(queryHandler);
+}
+main();

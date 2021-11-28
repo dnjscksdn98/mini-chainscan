@@ -4,6 +4,7 @@ export interface IChainAttributes {
   id?: number;
   chainId?: number;
   syncedBlock?: number;
+  uri?: string;
 }
 
 export interface IBlockAttributes {

@@ -23,7 +23,8 @@
     "config": "^3.3.6",
     "mysql2": "^2.3.3",
     "reflect-metadata": "^0.1.13",
-    "sequelize": "^6.12.0-alpha.1",
-    "sequelize-typescript": "^2.1.1"
+    "sequelize": "6.8.0",
+    "sequelize-typescript": "^2.1.1",
+    "web3": "^1.6.1"
   }
 }

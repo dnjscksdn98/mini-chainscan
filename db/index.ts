@@ -2,6 +2,7 @@ import { Sequelize } from 'sequelize-typescript';
 
 import { MySQL } from '../interfaces/credentials';
 import { Block, Chain, Transaction, TransactionLog, TransactionLogTopic } from './models';
+import { SequelizeRepository } from './repo';
 
 export class CsSequelize {
   private instance: Sequelize;
@@ -21,6 +22,7 @@ export class CsSequelize {
           timestamps: false,
         },
         logging: false,
+        repositoryMode: true,
       }
     )
 
@@ -37,5 +39,9 @@ export class CsSequelize {
       TransactionLog,
       TransactionLogTopic,
     ]);
+  }
+
+  public getSequelizeRepository(model: any): SequelizeRepository {
+    return new SequelizeRepository(this.instance.getRepository(model));
   }
 }
