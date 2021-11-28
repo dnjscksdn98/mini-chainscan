@@ -1,5 +1,7 @@
 import { QueryHandler } from '../../db/handlers';
-import { IBlockCreationAttributes } from '../../db/interfaces/attributes';
+import {
+  IBlockCreationAttributes, ITransactionCreationAttributes,
+} from '../../db/interfaces/attributes';
 import { Chain } from '../../db/models';
 import { Evm } from '../chains';
 
@@ -33,7 +35,7 @@ export class ChainScan {
     }
   }
 
-  private async syncBlock(blockNumber: number) {
+  private async syncBlock(blockNumber: number): Promise<void> {
     const block = await this.evm.getBlock(blockNumber);
     if (!block) {
       return;
@@ -61,6 +63,73 @@ export class ChainScan {
       totalDifficulty: this.evm.toHex(block.totalDifficulty),
       transactionsRoot: block.transactionRoot ? block.transactionRoot : '0x',
     };
-    await this.queryHandler.createBlock(blockValues);
+    const syncedBlock = await this.queryHandler.createBlock(blockValues);
+    await this.abstractTransactions(syncedBlock.id, block.transactions);
+  }
+
+  private async abstractTransactions(blockId: number, transactions: string[]): Promise<void> {
+    for (const transaction of transactions) {
+      const rawTransaction = await this.evm.getTransaction(transaction);
+      if (!rawTransaction) {
+        continue;
+      }
+
+      const transactionReceipt = await this.evm.getTransactionReceipt(transaction);
+      if (!transactionReceipt) {
+        continue;
+      }
+
+      const transactionValues: ITransactionCreationAttributes = {
+        blockId,
+        from: rawTransaction.from.toLowerCase(),
+        gas: this.evm.toHex(rawTransaction.gas),
+        gasPrice: this.evm.toHex(rawTransaction.gasPrice),
+        maxFeePerGas: rawTransaction['maxFeePerGas'] ? this.evm.toHex(rawTransaction['maxFeePerGas']) : '0x',
+        maxPriorityFeePerGas: rawTransaction['maxPriorityFeePerGas'] ? this.evm.toHex(rawTransaction['maxPriorityFeePerGas']) : '0x',
+        hash: rawTransaction.hash,
+        input: rawTransaction.input,
+        nonce: this.evm.toHex(rawTransaction.nonce),
+        to: rawTransaction.to ? rawTransaction.to.toLowerCase() : '0x',
+        transactionIndex: rawTransaction.transactionIndex ? this.evm.toHex(rawTransaction.transactionIndex) : '0x',
+        value: this.evm.toHex(rawTransaction.value),
+        type: rawTransaction['type'] ? this.evm.toHex(rawTransaction['type']) : '0x1',
+        v: rawTransaction['v'] ? rawTransaction['v'] : '0x',
+        r: rawTransaction['r'] ? rawTransaction['r'] : '0x',
+        s: rawTransaction['r'] ? rawTransaction['r'] : '0x',
+        contractAddress: transactionReceipt.contractAddress ? transactionReceipt.contractAddress.toLowerCase() : '0x',
+        cumulativeGasUsed: this.evm.toHex(transactionReceipt.cumulativeGasUsed),
+        effectiveGasPrice: transactionReceipt['effectiveGasPrice'] ? transactionReceipt['effectiveGasPrice'] : '0x',
+        gasUsed: this.evm.toHex(transactionReceipt.gasUsed),
+        status: transactionReceipt.status,
+      };
+
+      const syncedTransaction = await this.queryHandler.createTransaction(transactionValues);
+      await this.abstractTransactionLogs(syncedTransaction.id, transactionReceipt.logs);
+    }
+  }
+
+  private async abstractTransactionLogs(transactionId: number, logs: any[]): Promise<void> {
+    for (const log of logs) {
+      const transactionLogValues = {
+        transactionId,
+        address: log.address.toLowerCase(),
+        data: log.data,
+        logIndex: this.evm.toHex(log.logIndex),
+        removed: log.removed,
+      };
+
+      const syncedTransactionLog = await this.queryHandler.createTransactionLog(transactionLogValues);
+      await this.abstractTransactionLogTopics(syncedTransactionLog.id, log.topics);
+    }
+  }
+
+  private async abstractTransactionLogTopics(logId: number, topics: string[]): Promise<void> {
+    for (const topic of topics) {
+      const transactionLogTopicValues = {
+        logId,
+        topic,
+      };
+      await this.queryHandler.createTransactionLogTopic(transactionLogTopicValues);
+    }
   }
 }

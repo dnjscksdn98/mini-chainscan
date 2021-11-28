@@ -24,13 +24,7 @@ export class CsSequelize {
         logging: false,
         repositoryMode: true,
       }
-    )
-
-    this.instance.sync().then(() => {
-      console.log('mysql connection success');
-    }).catch((e) => {
-      console.error(`mysql connection error: ${e}`);
-    });
+    );
 
     this.instance.addModels([
       Chain,

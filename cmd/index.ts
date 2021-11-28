@@ -12,8 +12,6 @@ async function run(queryHandler: QueryHandler) {
     return;
   }
 
-  console.log(chain);
-
   const scan = new ChainScan(chain, queryHandler);
   await scan.sync();
 }
