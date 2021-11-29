@@ -32,6 +32,10 @@ export class QueryHandler {
     return await this.chainRepo.findOneAsync({ where: query, raw });
   }
 
+  public async updateSyncedBlock(id: number, syncedBlock: number): Promise<void> {
+    await this.chainRepo.updateAsync({ syncedBlock }, { id });
+  }
+
   // Block
   public async createBlock(values: IBlockCreationAttributes): Promise<Block> {
     return await this.blockRepo.createAsync(values);

@@ -1,4 +1,5 @@
 import { Repository } from 'sequelize-typescript';
+import { WhereAttributeHash } from 'sequelize/types';
 
 import { IFindQuery } from '../interfaces/queries';
 
@@ -18,6 +19,14 @@ export class SequelizeRepository {
   public async createAsync(values: any) {
     try {
       return await this.repo.create(values);
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  public async updateAsync(values: Partial<any>, where: WhereAttributeHash): Promise<[number, any[]] | null> {
+    try {
+      return this.repo.update(values, { where });
     } catch (err) {
       throw err;
     }

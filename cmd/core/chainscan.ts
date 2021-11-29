@@ -19,19 +19,23 @@ export class ChainScan {
     while (true) {
       const chain = await this.queryHandler.findOneChainByChainId(this.chain.chainId, true);
       if (!chain) {
+        console.log(`chain does not exist = ${this.chain.id}`);
         continue;
       }
 
       const latestBlockNumber = await this.evm.getLatestBlockNumber();
+      console.log(latestBlockNumber);
       if (!latestBlockNumber) {
+        console.log(`latest block not found = ${latestBlockNumber}`);
         continue;
       }
 
       if (chain.syncedBlock < latestBlockNumber) {
-        await this.syncBlock(chain.syncedBlock + 1);
+        const syncedBlock = chain.syncedBlock + 1;
+        await this.syncBlock(syncedBlock);
+        await this.queryHandler.updateSyncedBlock(this.chain.id, syncedBlock);
+        console.log(`synced block = ${syncedBlock}`);
       }
-      console.log('done');
-      break;
     }
   }
 
