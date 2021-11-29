@@ -13,9 +13,8 @@ async function run(queryHandler: QueryHandler) {
   }
 
   const scan = new ChainScan(chain, queryHandler);
-  await scan.sync();
-
   console.log('[*] ChainScan daemon up and running');
+  await scan.sync();
 }
 
 export { run };

@@ -4,6 +4,7 @@ import {
 } from '../../db/interfaces/attributes';
 import { Chain } from '../../db/models';
 import { Evm } from '../chains';
+import { TX_INPUT_MAX_LENGTH } from '../constants';
 
 export class ChainScan {
   private evm: Evm;
@@ -75,6 +76,9 @@ export class ChainScan {
     for (const transaction of transactions) {
       const rawTransaction = await this.evm.getTransaction(transaction);
       if (!rawTransaction) {
+        continue;
+      }
+      if (rawTransaction.input.length > TX_INPUT_MAX_LENGTH) {
         continue;
       }
 
