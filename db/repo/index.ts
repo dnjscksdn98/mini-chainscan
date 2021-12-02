@@ -16,6 +16,14 @@ export class SequelizeRepository {
     }
   }
 
+  public async findAllAsync(options: IFindQuery) {
+    try {
+      return await this.repo.findAll(options);
+    } catch (err) {
+      throw err;
+    }
+  }
+
   public async createAsync(values: any) {
     try {
       return await this.repo.create(values);
