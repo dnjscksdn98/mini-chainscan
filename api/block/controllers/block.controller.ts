@@ -1,32 +1,30 @@
-import { response } from 'express';
-
-import { Controller, Get, HttpStatus, Query } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 
 import { BlockService } from '../services';
 
-@Controller()
+@Controller('blocks')
 export class BlockController {
   constructor(
     private readonly blockService: BlockService,
   ) { }
 
-  @Get()
+  @Get('hash')
   public async getBlockByHash(
     @Query('chainId') chainId: number,
     @Query('hash') hash: string,
-    @Query('withTransactions') withTransactions: boolean,
-  ): Promise<void> {
+    @Query('withTransactions') withTransactions: string,
+  ) {
     const res = await this.blockService.getBlockByHash(chainId, hash, withTransactions);
-    response.status(HttpStatus.OK).send(res);
+    return res;
   }
 
-  @Get()
+  @Get('number')
   public async getBlockByNumber(
     @Query('chainId') chainId: number,
-    @Query('number') number: number,
-    @Query('withTransactions') withTransactions: boolean,
-  ): Promise<void> {
+    @Query('number') number: string,
+    @Query('withTransactions') withTransactions: string,
+  ) {
     const res = await this.blockService.getBlockByNumber(chainId, number, withTransactions);
-    response.status(HttpStatus.OK).send(res);
+    return res;
   }
 }

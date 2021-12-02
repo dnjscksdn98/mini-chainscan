@@ -1,4 +1,4 @@
-import { toHex } from 'web3-utils';
+import { isHex, toHex } from 'web3-utils';
 
 import { Inject, Injectable } from '@nestjs/common';
 
@@ -9,27 +9,33 @@ import { QUERY_HANDLER_PROVIDER } from '../../sequelize';
 export class BlockService {
   constructor(
     @Inject(QUERY_HANDLER_PROVIDER) private queryHandler: QueryHandler,
-  ) {}
+  ) { }
 
-  public async getBlockByHash(chainId: number, hash: string, withTransactions = false) {
+  public async getBlockByHash(chainId: number, hash: string, withTransactions = "false") {
     const block = await this.queryHandler.findOneBlockByChainIdAndHash(chainId, hash, true);
     if (!block) {
+      console.log(block);
       throw new Error(`block not found(${chainId}:${hash})`);
     }
 
-    if (withTransactions) {
+    if (withTransactions === "true") {
       return { ...block, transactions: await this.abstractTransactions(block.id) };
     }
     return block;
   }
 
-  public async getBlockByNumber(chainId: number, number: number, withTransactions = false) {
-    const block = await this.queryHandler.findOneBlockByChainIdAndNumber(chainId, toHex(number), true);
+  public async getBlockByNumber(chainId: number, number: string, withTransactions = "false") {
+    let block = null;
+    if (isHex(number)) {
+      block = await this.queryHandler.findOneBlockByChainIdAndNumber(chainId, number, true);
+    } else {
+      block = await this.queryHandler.findOneBlockByChainIdAndNumber(chainId, toHex(number), true);
+    }
     if (!block) {
       throw new Error(`block not found(${chainId}:${number})`);
     }
 
-    if (withTransactions) {
+    if (withTransactions === "true") {
       return { ...block, transactions: await this.abstractTransactions(block.id) };
     }
     return block;
