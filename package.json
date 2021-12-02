@@ -2,9 +2,9 @@
   "name": "@dnjscksdn98/mini-chainscan",
   "version": "1.0.0",
   "author": "dnjscksdn98",
-  "main": "./index.ts",
+  "main": "./main.ts",
   "scripts": {
-    "start": "nodemon --exec ts-node ./index.ts",
+    "start": "nodemon --exec ts-node ./main.ts",
     "build": "tsc"
   },
   "repository": {
