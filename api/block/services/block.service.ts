@@ -14,7 +14,6 @@ export class BlockService {
   public async getBlockByHash(chainId: number, hash: string, withTransactions = "false") {
     const block = await this.queryHandler.findOneBlockByChainIdAndHash(chainId, hash, true);
     if (!block) {
-      console.log(block);
       throw new Error(`block not found(${chainId}:${hash})`);
     }
 

@@ -55,6 +55,11 @@ export class QueryHandler {
   }
 
   // Transaction
+  public async findOneTransactionByChainIdAndHash(chainId: number, hash: string, raw?: boolean) {
+    const query: ITransactionFindQuery = { chainId, hash };
+    return await this.transactionRepo.findOneAsync({ where: query, raw });
+  }
+
   public async findAllTransactionsByBlockId(blockId: number, raw?: boolean): Promise<Transaction[] | null> {
     const query: ITransactionFindQuery = { blockId };
     return await this.transactionRepo.findAllAsync({ where: query, raw });
