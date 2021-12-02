@@ -3,7 +3,7 @@ import {
 } from 'sequelize-typescript';
 
 import { ITransactionCreationAttributes } from '../interfaces/attributes';
-import { Block } from './';
+import { Block, Chain } from './';
 
 @Table({ tableName: 'Transaction' })
 export class Transaction extends Model implements ITransactionCreationAttributes {
@@ -17,6 +17,11 @@ export class Transaction extends Model implements ITransactionCreationAttributes
   @ForeignKey(() => Block)
   @Column
   blockId!: number;
+
+  @AllowNull(false)
+  @ForeignKey(() => Chain)
+  @Column
+  chainId!: number;
 
   @AllowNull(false)
   @Column

@@ -40,6 +40,7 @@ CREATE TABLE `Block` (
 CREATE TABLE `Transaction` (
   `id` int NOT NULL AUTO_INCREMENT,
   `blockId` int NOT NULL,
+  `chainId` int NOT NULL,
   `from` varchar(42) NOT NULL,
   `gas` varchar(32) NOT NULL,
   `gasPrice` varchar(32) NOT NULL,
@@ -62,7 +63,9 @@ CREATE TABLE `Transaction` (
   `status` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_Transaction_blockId` (`blockId`),
-  CONSTRAINT `FK_Transaction_blockId` FOREIGN KEY (`blockId`) REFERENCES `Block` (`id`) ON DELETE CASCADE
+  CONSTRAINT `FK_Transaction_blockId` FOREIGN KEY (`blockId`) REFERENCES `Block` (`id`) ON DELETE CASCADE,
+  KEY `FK_Transaction_chainId` (`chainId`),
+  CONSTRAINT `FK_Transaction_chainId` FOREIGN KEY (`chainId`) REFERENCES `Chain` (`id`) ON DELETE CASCADE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;

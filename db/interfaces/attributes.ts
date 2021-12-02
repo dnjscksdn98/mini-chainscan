@@ -34,6 +34,7 @@ export interface IBlockAttributes {
 export interface ITransactionAttributes {
   id?: number;
   blockId?: number;
+  chainId?: number;
   from?: string;
   gas?: string;
   gasPrice?: string;

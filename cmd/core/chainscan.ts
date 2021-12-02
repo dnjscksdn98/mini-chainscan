@@ -89,6 +89,7 @@ export class ChainScan {
 
       const transactionValues: ITransactionCreationAttributes = {
         blockId,
+        chainId: this.chain.id,
         from: rawTransaction.from.toLowerCase(),
         gas: this.evm.toHex(rawTransaction.gas),
         gasPrice: this.evm.toHex(rawTransaction.gasPrice),
