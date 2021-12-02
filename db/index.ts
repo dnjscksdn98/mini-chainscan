@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize-typescript';
 
-import { MySQL } from '../interfaces/credentials';
+import { MySQL } from '../common/interfaces/credentials';
 import { Block, Chain, Transaction, TransactionLog, TransactionLogTopic } from './models';
 import { SequelizeRepository } from './repo';
 

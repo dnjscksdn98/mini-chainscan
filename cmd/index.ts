@@ -1,6 +1,6 @@
+import { ChainId } from '../common/interfaces/credentials';
+import { errorHandler } from '../common/utils/error-handler';
 import { QueryHandler } from '../db/handlers';
-import { ChainId } from '../interfaces/credentials';
-import { errorHandler } from '../utils/error-handler';
 import { ChainScan } from './core';
 
 async function run(queryHandler: QueryHandler) {
