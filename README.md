@@ -26,6 +26,8 @@ Create a config.json file in your home directory and then run the following comm
 ```
 docker run -d --name <app-name> -p 3000:3000 <your username>/mini-chainscan
 ```
+<img width="798" src="https://user-images.githubusercontent.com/59077132/144715061-d933246f-50c5-4906-a055-479b3f31d65c.png">
+
 
 ### Members
 - [@dnjscksdn98](https://github.com/dnjscknsd98)

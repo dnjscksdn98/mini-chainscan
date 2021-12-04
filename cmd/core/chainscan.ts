@@ -69,6 +69,8 @@ export class ChainScan {
       transactionsRoot: block.transactionRoot ? block.transactionRoot : '0x',
     };
     const syncedBlock = await this.queryHandler.createBlock(blockValues);
+    console.log(`processed block data(${this.chain.chainId}:${blockNumber})`);
+
     await this.abstractTransactions(syncedBlock.id, block.transactions);
   }
 
@@ -114,7 +116,10 @@ export class ChainScan {
 
       const syncedTransaction = await this.queryHandler.createTransaction(transactionValues);
       await this.abstractTransactionLogs(syncedTransaction.id, transactionReceipt.logs);
+
+      console.log(`processed transaction(${rawTransaction.hash})`);
     }
+    console.log(`processed ${transactions.length} transactions`);
   }
 
   private async abstractTransactionLogs(transactionId: number, logs: any[]): Promise<void> {
