@@ -22,6 +22,22 @@ Mini ChainScan can be attached to any EVM node. It consumes every new mined bloc
 <img width="278" src="https://user-images.githubusercontent.com/59077132/144713254-5c6b77ba-fcbf-428b-91b7-1ae362d0ef87.png">
 
 ### Get Started
+
+> Local development
+
+```
+yarn start
+```
+
+> PM2
+
+```
+yarn run build
+pm2 start build/main.js
+```
+
+> Docker
+
 Create a config.json file in your home directory and then run the following command.
 ```
 docker run -d --name <app-name> -p 3000:3000 <your username>/mini-chainscan
